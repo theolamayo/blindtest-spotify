@@ -33,7 +33,8 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      text: ""
+      text: "",
+      songsLoaded: false
     };
   }
 
@@ -49,23 +50,34 @@ class App extends Component {
         console.log("Recepted data: ", data);
         this.setState({text: data.items[0].track.artists[0].name + ' - ' + data.items[0].track.name});
         var tracks = data;
+        this.setState({songsLoaded: true})
       })
   }
 
   render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo"/>
-          <h1 className="App-title">Bienvenue sur le Blindtest</h1>
-        </header>
-        <div className="App-images">
-          <p>{this.state.text}</p>
+    if (this.state.songsLoaded) {
+      return (
+        <div className="App">
+          <header className="App-header">
+            <img src={logo} className="App-logo" alt="logo"/>
+            <h1 className="App-title">Bienvenue sur le Blindtest</h1>
+          </header>
+          <div className="App-images">
+            <p>{this.state.text}</p>
+          </div>
+          <div className="App-buttons">
+          </div>
         </div>
-        <div className="App-buttons">
+      );
+    } else {
+      return (
+        <div className="App">
+          <header className="App-header">
+            <img src={logo} className="App-logo" alt="logo"/>
+          </header>
         </div>
-      </div>
-    );
+      );
+    }
   }
 }
 
