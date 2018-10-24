@@ -30,8 +30,13 @@ function getRandomNumber(x) {
 
 class AlbumCover extends Component {
   render() {
+    console.log(this.props.track);
+    var coverUrl = this.props.track.album.images[0].url;
     return (
-      <p>dummy text</p>
+      <div>
+        <p>dummy text</p>
+        <img src={coverUrl}/>
+      </div>
     )
   }
 }
@@ -63,6 +68,7 @@ class App extends Component {
 
   render() {
     if (this.state.songsLoaded) {
+      var currentTrack = this.state.tracks.items[0].track;
       return (
         <div className="App">
           <header className="App-header">
@@ -73,7 +79,7 @@ class App extends Component {
             <p>Number of available tracks: {this.state.tracks.items.length}</p>
             <p>Track 1: {this.state.tracks.items[0].track.artists[0].name +
                 ' - ' + this.state.tracks.items[0].track.name}</p>
-            <AlbumCover></AlbumCover>
+            <AlbumCover track={currentTrack}/>
           </div>
           <div className="App-buttons">
           </div>
