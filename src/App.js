@@ -28,10 +28,17 @@ function getRandomNumber(x) {
   return Math.floor(Math.random() * x);
 }
 
+function componentDidMount() {
+  this.setState({text: "Coucou"})
+}
+
 class App extends Component {
 
   constructor() {
     super();
+    this.state = {
+      text: "coucou"
+    };
   }
 
   render() {
@@ -42,7 +49,7 @@ class App extends Component {
           <h1 className="App-title">Bienvenue sur le Blindtest</h1>
         </header>
         <div className="App-images">
-          <p>Bientôt disponible</p>
+          <p>{this.state.text}</p>
         </div>
         <div className="App-buttons">
         </div>
