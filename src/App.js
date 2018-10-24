@@ -33,14 +33,11 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      text: "42"
+      text: ""
     };
   }
 
   componentDidMount() {
-    this.setState({text: "Coucou"});
-    console.log("test");
-
     fetch('https://api.spotify.com/v1/me/tracks', {
       method: 'GET',
       headers: {
@@ -49,9 +46,10 @@ class App extends Component {
     })
       .then(response => response.json())
       .then((data) => {
-        console.log("Réponse reçue ! Voilà ce que j'ai reçu : ", data);
+        console.log("Recepted data: ", data);
+        this.setState({text: data.items[0].track.artists[0].name + ' - ' + data.items[0].track.name});
+        var tracks = data;
       })
-    
   }
 
   render() {
