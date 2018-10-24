@@ -7,7 +7,7 @@ import './App.css';
 import Sound from 'react-sound';
 import Button from './Button';
 
-const apiToken = 'BQBMAhb1Qde69Nej3W4Ldr7ZjxJD3Ron9es8KyLVAFmTGlY-SNPDO501X-n-QuqF0L20lm2_m37zS6hQe2-5YTUzrMhiCI9HqZzfY2vLvxHYa73Ce5gRXWBOQqv3x7Ojpe_ok3O_nBIRe9z4QfcFDDT8kd5GULuAgvoPWlcTNvsMKv1A';
+const apiToken = 'BQA0fldcevCiZcbTNIC9nLvlt5X2lan-vnHZWKMWGfigQT1PobrjYrTc5Ws0p-ZxpJKxRXh8ow2BC8ZZIvkQB2eL0Pfsi_QOLMFm5SqRADhMo5dXytzqDjQ1joFoSp800xQYyEEBAumpdZXKrKJQB8MhQKVgF8j6V03VkrED6JUwcC16';
 
 function shuffleArray(array) {
   let counter = array.length;
@@ -30,14 +30,13 @@ function getRandomNumber(x) {
 
 class AlbumCover extends Component {
   render() {
-    console.log(this.props.track);
     var coverUrl = this.props.track.album.images[0].url;
     return (
       <div>
         <p>dummy text</p>
         <img src={coverUrl}/>
       </div>
-    )
+    );
   }
 }
 
@@ -62,7 +61,7 @@ class App extends Component {
       .then((data) => {
         console.log("Recepted data: ", data);
         this.setState({tracks: data});
-        this.setState({songsLoaded: true})
+        this.setState({songsLoaded: true});
       })
   }
 
@@ -80,6 +79,8 @@ class App extends Component {
             <p>Track 1: {this.state.tracks.items[0].track.artists[0].name +
                 ' - ' + this.state.tracks.items[0].track.name}</p>
             <AlbumCover track={currentTrack}/>
+            <p>{currentTrack.preview_url}</p>
+            <Sound url={currentTrack.preview_url} playStatus={Sound.status.PLAYING}/>
           </div>
           <div className="App-buttons">
           </div>
