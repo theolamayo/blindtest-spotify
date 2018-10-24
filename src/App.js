@@ -7,7 +7,7 @@ import './App.css';
 import Sound from 'react-sound';
 import Button from './Button';
 
-const apiToken = '<<Copiez le token de Spotify ici>>';
+const apiToken = 'BQBMAhb1Qde69Nej3W4Ldr7ZjxJD3Ron9es8KyLVAFmTGlY-SNPDO501X-n-QuqF0L20lm2_m37zS6hQe2-5YTUzrMhiCI9HqZzfY2vLvxHYa73Ce5gRXWBOQqv3x7Ojpe_ok3O_nBIRe9z4QfcFDDT8kd5GULuAgvoPWlcTNvsMKv1A';
 
 function shuffleArray(array) {
   let counter = array.length;
@@ -28,17 +28,30 @@ function getRandomNumber(x) {
   return Math.floor(Math.random() * x);
 }
 
-function componentDidMount() {
-  this.setState({text: "Coucou"})
-}
-
 class App extends Component {
 
   constructor() {
     super();
     this.state = {
-      text: "coucou"
+      text: "42"
     };
+  }
+
+  componentDidMount() {
+    this.setState({text: "Coucou"});
+    console.log("test");
+
+    fetch('https://api.spotify.com/v1/me/tracks', {
+      method: 'GET',
+      headers: {
+       Authorization: 'Bearer ' + apiToken,
+      },
+    })
+      .then(response => response.json())
+      .then((data) => {
+        console.log("Réponse reçue ! Voilà ce que j'ai reçu : ", data);
+      })
+    
   }
 
   render() {
