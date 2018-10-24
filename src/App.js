@@ -7,7 +7,7 @@ import './App.css';
 import Sound from 'react-sound';
 import Button from './Button';
 
-const apiToken = 'BQA0fldcevCiZcbTNIC9nLvlt5X2lan-vnHZWKMWGfigQT1PobrjYrTc5Ws0p-ZxpJKxRXh8ow2BC8ZZIvkQB2eL0Pfsi_QOLMFm5SqRADhMo5dXytzqDjQ1joFoSp800xQYyEEBAumpdZXKrKJQB8MhQKVgF8j6V03VkrED6JUwcC16';
+const apiToken = 'BQA8JXobm6jhi1j5w5Bwz8mYy1rixd9opWpRY-cI3j80G4IVPDsyNaHq1CNoTlddRMc_vZ6PJq9ljZ_4POxobWxxrA9FomVkPEPQ1GJLRFpdfrPXSWRgtgi-1c9InDxU4AH_GEVxZRRucMVz03_AhwzQxCVGw53mW16Xro5MLTl31MmW';
 
 function shuffleArray(array) {
   let counter = array.length;
@@ -64,9 +64,21 @@ class App extends Component {
       })
   }
 
+  checkAnswer(id) {
+    if (id === this.state.currentId) {
+      swal('Bravo', 'You recognized the song!', 'success');
+    } else {
+      swal('Nope', 'You failed', 'error');
+    }
+  }
+
   render() {
     if (this.state.songsLoaded) {
-      var currentTrack = this.state.tracks.items[0].track;
+      var firstTrack = this.state.tracks.items[0].track;
+      var secondTrack = this.state.tracks.items[1].track;
+      var thirdTrack = this.state.tracks.items[2].track;
+      var currentTrack = firstTrack;
+      this.state.currentId = currentTrack.id;
       return (
         <div className="App">
           <header className="App-header">
@@ -79,7 +91,9 @@ class App extends Component {
             <Sound url={currentTrack.preview_url} playStatus={Sound.status.PLAYING}/>
           </div>
           <div className="App-buttons">
-            <Button>{currentTrack.name}</Button>
+            <Button onClick={() => this.checkAnswer(firstTrack.id)}>{firstTrack.name}</Button>
+            <Button onClick={() => this.checkAnswer(secondTrack.id)}>{secondTrack.name}</Button>
+            <Button onClick={() => this.checkAnswer(thirdTrack.id)}>{thirdTrack.name}</Button>
           </div>
         </div>
       );
