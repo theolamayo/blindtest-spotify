@@ -28,6 +28,14 @@ function getRandomNumber(x) {
   return Math.floor(Math.random() * x);
 }
 
+class AlbumCover extends Component {
+  render() {
+    return (
+      <p>dummy text</p>
+    )
+  }
+}
+
 class App extends Component {
 
   constructor() {
@@ -48,7 +56,6 @@ class App extends Component {
       .then(response => response.json())
       .then((data) => {
         console.log("Recepted data: ", data);
-        this.setState({text: data.items[0].track.artists[0].name + ' - ' + data.items[0].track.name});
         this.setState({tracks: data});
         this.setState({songsLoaded: true})
       })
@@ -64,6 +71,9 @@ class App extends Component {
           </header>
           <div className="App-images">
             <p>Number of available tracks: {this.state.tracks.items.length}</p>
+            <p>Track 1: {this.state.tracks.items[0].track.artists[0].name +
+                ' - ' + this.state.tracks.items[0].track.name}</p>
+            <AlbumCover></AlbumCover>
           </div>
           <div className="App-buttons">
           </div>
