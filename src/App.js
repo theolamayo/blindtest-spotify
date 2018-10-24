@@ -33,7 +33,6 @@ class AlbumCover extends Component {
     var coverUrl = this.props.track.album.images[0].url;
     return (
       <div>
-        <p>dummy text</p>
         <img src={coverUrl}/>
       </div>
     );
@@ -76,13 +75,11 @@ class App extends Component {
           </header>
           <div className="App-images">
             <p>Number of available tracks: {this.state.tracks.items.length}</p>
-            <p>Track 1: {this.state.tracks.items[0].track.artists[0].name +
-                ' - ' + this.state.tracks.items[0].track.name}</p>
             <AlbumCover track={currentTrack}/>
-            <p>{currentTrack.preview_url}</p>
             <Sound url={currentTrack.preview_url} playStatus={Sound.status.PLAYING}/>
           </div>
           <div className="App-buttons">
+            <Button>{currentTrack.name}</Button>
           </div>
         </div>
       );
