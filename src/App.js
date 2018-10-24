@@ -49,7 +49,7 @@ class App extends Component {
       .then((data) => {
         console.log("Recepted data: ", data);
         this.setState({text: data.items[0].track.artists[0].name + ' - ' + data.items[0].track.name});
-        var tracks = data;
+        this.setState({tracks: data});
         this.setState({songsLoaded: true})
       })
   }
@@ -63,7 +63,7 @@ class App extends Component {
             <h1 className="App-title">Bienvenue sur le Blindtest</h1>
           </header>
           <div className="App-images">
-            <p>{this.state.text}</p>
+            <p>Number of available tracks: {this.state.tracks.items.length}</p>
           </div>
           <div className="App-buttons">
           </div>
