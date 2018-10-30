@@ -61,18 +61,20 @@ class App extends Component {
         console.log("Recepted data: ", data);
         var numberTracks = data.items.length;
         var currentTrack = data.items[getRandomNumber(numberTracks)].track;
+        const timeout = setTimeout(this.chooseNewCurrentTrack.bind(this), 30000);
         this.setState({
           songsLoaded: true,
           numberTracks: numberTracks,
           tracks: data,
           currentTrack: currentTrack,
+          timeout: timeout,
         });
       });
   }
 
   checkAnswer(id) {
     if (id === this.state.currentId) {
-      swal('Bravo', 'You recognized the song!', 'success');
+      swal('Bravo', 'You recognized the song!', 'success').then(this.chooseNewCurrentTrack.bind(this));
     } else {
       swal('Nope', 'You failed', 'error');
     }
@@ -80,6 +82,13 @@ class App extends Component {
 
   chooseRandomTrack() {
     return this.state.tracks.items[getRandomNumber(this.state.numberTracks)].track;
+  }
+
+  chooseNewCurrentTrack() {
+    this.setState({
+      ...this.state,
+      currentTrack: this.chooseRandomTrack()
+    });
   }
 
   render() {
