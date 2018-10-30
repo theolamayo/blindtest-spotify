@@ -81,9 +81,11 @@ class App extends Component {
   render() {
     if (this.state.songsLoaded) {
       this.state.currentId = this.state.currentTrack.id;
-      var firstTrack = this.state.currentTrack;
-      var secondTrack = this.state.tracks.items[getRandomNumber(this.state.numberTracks)].track;
-      var thirdTrack = this.state.tracks.items[getRandomNumber(this.state.numberTracks)].track;
+      const buttonTracks = shuffleArray([
+        this.state.currentTrack,
+        this.state.tracks.items[getRandomNumber(this.state.numberTracks)].track,
+        this.state.tracks.items[getRandomNumber(this.state.numberTracks)].track,
+      ]);
       return (
         <div className="App">
           <header className="App-header">
@@ -96,9 +98,11 @@ class App extends Component {
             <Sound url={this.state.currentTrack.preview_url} playStatus={Sound.status.PLAYING}/>
           </div>
           <div className="App-buttons">
-            <Button onClick={() => this.checkAnswer(firstTrack.id)}>{firstTrack.name}</Button>
-            <Button onClick={() => this.checkAnswer(secondTrack.id)}>{secondTrack.name}</Button>
-            <Button onClick={() => this.checkAnswer(thirdTrack.id)}>{thirdTrack.name}</Button>
+            {
+              buttonTracks.map(track => (
+                <Button onClick={() => this.checkAnswer(track.id)}>{track.name}</Button>
+              ))
+            }
           </div>
         </div>
       );
