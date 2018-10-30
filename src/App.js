@@ -59,9 +59,11 @@ class App extends Component {
       .then(response => response.json())
       .then((data) => {
         console.log("Recepted data: ", data);
-        var currentTrack = data.items[getRandomNumber(data.items.length)].track;
+        var numberTracks = data.items.length;
+        var currentTrack = data.items[getRandomNumber(numberTracks)].track;
         this.setState({
           songsLoaded: true,
+          numberTracks: numberTracks,
           tracks: data,
           currentTrack: currentTrack,
         });
@@ -78,11 +80,10 @@ class App extends Component {
 
   render() {
     if (this.state.songsLoaded) {
-      var firstTrack = this.state.tracks.items[0].track;
-      var secondTrack = this.state.tracks.items[1].track;
-      var thirdTrack = this.state.tracks.items[2].track;
-      var currentTrack = firstTrack;
-      this.state.currentId = currentTrack.id;
+      this.state.currentId = this.state.currentTrack.id;
+      var firstTrack = this.state.currentTrack;
+      var secondTrack = this.state.tracks.items[getRandomNumber(this.state.numberTracks)].track;
+      var thirdTrack = this.state.tracks.items[getRandomNumber(this.state.numberTracks)].track;
       return (
         <div className="App">
           <header className="App-header">
@@ -90,7 +91,7 @@ class App extends Component {
             <h1 className="App-title">Bienvenue sur le Blindtest</h1>
           </header>
           <div className="App-images">
-            <p>Number of available tracks: {this.state.tracks.items.length}</p>
+            <p>Number of available tracks: {this.state.numberTracks}</p>
             <AlbumCover track={this.state.currentTrack}/>
             <Sound url={this.state.currentTrack.preview_url} playStatus={Sound.status.PLAYING}/>
           </div>
