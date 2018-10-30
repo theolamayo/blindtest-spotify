@@ -78,13 +78,17 @@ class App extends Component {
     }
   }
 
+  chooseRandomTrack() {
+    return this.state.tracks.items[getRandomNumber(this.state.numberTracks)].track;
+  }
+
   render() {
     if (this.state.songsLoaded) {
       this.state.currentId = this.state.currentTrack.id;
       const buttonTracks = shuffleArray([
         this.state.currentTrack,
-        this.state.tracks.items[getRandomNumber(this.state.numberTracks)].track,
-        this.state.tracks.items[getRandomNumber(this.state.numberTracks)].track,
+        this.chooseRandomTrack(),
+        this.chooseRandomTrack(),
       ]);
       return (
         <div className="App">
