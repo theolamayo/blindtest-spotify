@@ -7,7 +7,7 @@ import './App.css';
 import Sound from 'react-sound';
 import Button from './Button';
 
-const apiToken = 'BQA8JXobm6jhi1j5w5Bwz8mYy1rixd9opWpRY-cI3j80G4IVPDsyNaHq1CNoTlddRMc_vZ6PJq9ljZ_4POxobWxxrA9FomVkPEPQ1GJLRFpdfrPXSWRgtgi-1c9InDxU4AH_GEVxZRRucMVz03_AhwzQxCVGw53mW16Xro5MLTl31MmW';
+const apiToken = 'BQCBd7Sxe8mYgTVaCHEn6yWrJ2FpvGcl3EqAdYMAMfWQ7kjwrlrtcpWRUOlajQCQg9rAzqtqNmlmj0FJitcAujE9A24OZzQmdEauTO90U3IoaFhh1EPTOYEMSaEdPmUZiNBqKUNccfRG95kNWBz8Oa3V8Te9Zwmbl2cvuhWyuN2poUPr';
 
 function shuffleArray(array) {
   let counter = array.length;
@@ -44,8 +44,8 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      text: "",
-      songsLoaded: false
+      songsLoaded: false,
+      tracks: null,
     };
   }
 
@@ -59,9 +59,13 @@ class App extends Component {
       .then(response => response.json())
       .then((data) => {
         console.log("Recepted data: ", data);
-        this.setState({tracks: data});
-        this.setState({songsLoaded: true});
-      })
+        var currentTrack = data.items[getRandomNumber(data.items.length)].track;
+        this.setState({
+          songsLoaded: true,
+          tracks: data,
+          currentTrack: currentTrack,
+        });
+      });
   }
 
   checkAnswer(id) {
@@ -87,8 +91,8 @@ class App extends Component {
           </header>
           <div className="App-images">
             <p>Number of available tracks: {this.state.tracks.items.length}</p>
-            <AlbumCover track={currentTrack}/>
-            <Sound url={currentTrack.preview_url} playStatus={Sound.status.PLAYING}/>
+            <AlbumCover track={this.state.currentTrack}/>
+            <Sound url={this.state.currentTrack.preview_url} playStatus={Sound.status.PLAYING}/>
           </div>
           <div className="App-buttons">
             <Button onClick={() => this.checkAnswer(firstTrack.id)}>{firstTrack.name}</Button>
